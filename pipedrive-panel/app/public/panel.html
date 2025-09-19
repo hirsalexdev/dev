@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Proscale Testpanel</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/@pipedrive/app-extensions-sdk@0/dist/index.umd.js"></script>
+  <style>
+    html,body{margin:0;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .wrap{padding:14px}
+    button{padding:8px 12px;border:1px solid #ddd;border-radius:8px;cursor:pointer;background:#fff}
+    .muted{opacity:.7}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h3>Hallo Pipedrive 👋</h3>
+    <p class="muted" id="ctx">Lade Kontext…</p>
+    <button id="resize">Panel auf 600 px Höhe setzen</button>
+  </div>
+  <script>
+    (async function(){
+      const { default: AppExtensionsSDK, Command } = window.AppExtensionsSDK;
+      try {
+        const sdk = await new AppExtensionsSDK().initialize({ size: { height: 400 } });
+        await sdk.execute(Command.SHOW_SNACKBAR, { message: 'Panel geladen ✅' });
+
+        const params = new URLSearchParams(location.search);
+        const resource = params.get('resource');
+        const selectedIds = params.get('selectedIds');
+        document.getElementById('ctx').textContent = `Resource: ${resource} • selectedIds: ${selectedIds}`;
+
+        document.getElementById('resize').addEventListener('click', async () => {
+          await sdk.execute(Command.RESIZE, { height: 600 });
+        });
+      } catch (e) {
+        console.error('SDK init error', e);
+        document.getElementById('ctx').textContent = 'SDK konnte nicht initialisiert werden.';
+      }
+    })();
+  </script>
+</body>
+</html>

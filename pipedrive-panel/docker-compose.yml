@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  app:
+    build: ./app
+    environment:
+      - PORT=3000
+      - PIPEDRIVE_JWT_SECRET=${PIPEDRIVE_JWT_SECRET}
+    restart: unless-stopped
+    networks:
+      - web_net
+
+networks:
+  web_net:
+    external: true
+    name: web
