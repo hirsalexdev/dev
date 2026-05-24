@@ -1,15 +1,42 @@
-# What is this?
+# Snowbusters Demo
 
-The github.dev web-based editor is a lightweight editing experience that runs entirely in your browser. You can navigate files and source code repositories from GitHub, and make and commit code changes.
+Eine spielbare Nachbildung dessen, was die **Whiteout Survival**-Werbung verspricht — aber das echte Spiel nicht liefert.
 
-There are two ways to go directly to a VS Code environment in your browser and start coding:
+In den Ads steuerst du eine kleine Figur durch verschneite Landschaften, räumst Schnee weg, taust eingefrorene Survivors auf, hältst ein Lagerfeuer am Leben und bekämpfst Schneebestien. Das tatsächliche Mobile Game ist dagegen ein Idle-Strategy-City-Builder ohne diese Action-Mechanik.
 
-* Press the . key on any repository or pull request.
-* Swap `.com` with `.dev` in the URL. For example, this repo https://github.com/github/dev becomes http://github.dev/github/dev
+Diese Demo baut die beworbene Mechanik als kurzes, eigenständiges Browser-Game nach.
 
-Preview the gif below to get a quick demo of github.dev in action.
+## Spielen
 
-![github dev](https://user-images.githubusercontent.com/856858/130119109-4769f2d7-9027-4bc4-a38c-10f297499e8f.gif)
+```sh
+python3 -m http.server 8000
+# dann http://localhost:8000 öffnen
+```
 
-# Why?
-It’s a quick way to edit and navigate code. It's especially useful if you want to edit multiple files at a time or take advantage of all the powerful code editing features of Visual Studio Code when making a quick change. For more information, see our [documentation](https://github.co/codespaces-editor-help).
+Es braucht keinen Build-Schritt — `phaser.min.js` liegt direkt im Repo, alles ist Vanilla JS.
+
+## Steuerung
+
+- **WASD** oder **Pfeiltasten** — bewegen & gleichzeitig Schnee räumen
+- **Leertaste halten** — Survivor in Reichweite auftauen
+- **Leertaste tippen** — Bestie in Reichweite angreifen
+- **E** — am Lagerfeuer Kohle einwerfen (Feuer-Level ↑ → mehr HP-Regen)
+- **Rocket-Button** — sobald 95% Schnee geräumt sind, Stage beenden
+
+## Mechaniken
+
+| Ressource     | Effekt                                                                 |
+|---------------|------------------------------------------------------------------------|
+| ⛽ Fuel        | Wird bei Bewegung verbraucht. Geht aus → Game Over.                    |
+| ❤️ HP          | Beasts machen Schaden. Nahe am Feuer regeneriert es sich.              |
+| 🪨 Kohle       | Drops von Beasts. 3× Kohle ins Feuer = Feuer-Level ↑.                  |
+| 🔥 Feuer-Lv    | Höheres Level = schnellere HP-Regeneration in der Aura.                |
+| 🧑 Survivor    | Aufgetaute Survivor erweitern deinen Räum-Radius dauerhaft.            |
+| ❄️ Snow %      | Bei 95% kannst du die Rakete zünden und die Stage gewinnen.            |
+
+## Dateien
+
+- `index.html` — Markup, HUD, Phaser-Mount
+- `styles.css` — HUD- und Overlay-Styling
+- `game.js` — komplette Game-Logik (Phaser 3 Scene)
+- `phaser.min.js` — gebundelter Phaser 3.80.1

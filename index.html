@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowbusters Demo — Whiteout Survival Ad Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="phaser.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="hud">
+            <div class="hud-row">
+                <div class="hud-stat" id="fuel-stat">
+                    <span class="hud-icon">⛽</span>
+                    <div class="bar"><div class="bar-fill" id="fuel-bar"></div></div>
+                    <span class="hud-value" id="fuel-value">100</span>
+                </div>
+                <div class="hud-stat" id="hp-stat">
+                    <span class="hud-icon">❤️</span>
+                    <div class="bar"><div class="bar-fill hp" id="hp-bar"></div></div>
+                    <span class="hud-value" id="hp-value">100</span>
+                </div>
+            </div>
+            <div class="hud-row">
+                <div class="hud-pill"><span class="hud-icon">🪨</span><span id="coal-value">0</span></div>
+                <div class="hud-pill"><span class="hud-icon">🔥</span> Lv <span id="fire-level">1</span></div>
+                <div class="hud-pill"><span class="hud-icon">🧑</span><span id="survivor-value">0</span>/<span id="survivor-total">4</span></div>
+                <div class="hud-pill"><span class="hud-icon">❄️</span><span id="snow-percent">0</span>%</div>
+            </div>
+        </div>
+
+        <div id="phaser-mount"></div>
+
+        <div id="controls-hint">
+            <kbd>WASD</kbd> / <kbd>Pfeiltasten</kbd> bewegen &amp; Schnee räumen ·
+            <kbd>Leertaste</kbd> halten = Survivor auftauen / Beast angreifen ·
+            <kbd>E</kbd> am Feuer = Kohle einwerfen
+        </div>
+
+        <div id="rocket-button" class="hidden">🚀 Rakete zünden — Stage beenden!</div>
+
+        <div id="overlay" class="hidden">
+            <div id="overlay-content">
+                <h1 id="overlay-title">Stage geschafft!</h1>
+                <p id="overlay-text"></p>
+                <button id="overlay-button">Neue Stage</button>
+            </div>
+        </div>
+
+        <div id="intro-overlay">
+            <div id="intro-content">
+                <h1>❄️ Snowbusters Demo</h1>
+                <p class="subtitle">Das Spiel, das die Whiteout-Survival-Werbung verspricht — aber das echte Spiel nicht liefert.</p>
+                <div class="intro-rules">
+                    <p>🎯 <strong>Räume 95% des Schnees</strong>, um die Rakete zu zünden.</p>
+                    <p>🧑 <strong>Taue Survivors auf</strong> (Leertaste halten) → erweitern deinen Räum-Radius.</p>
+                    <p>🪨 <strong>Sammle Kohle</strong> und wirf sie ins Feuer (<kbd>E</kbd>) → schnellere HP-Regeneration in der Nähe.</p>
+                    <p>🐻 <strong>Bekämpfe Bestien</strong> (Leertaste) → sie droppen Kohle und Fuel.</p>
+                    <p>⛽ <strong>Vorsicht mit Fuel</strong> — jede Bewegung kostet. Geht es aus, ist die Stage vorbei.</p>
+                </div>
+                <button id="start-button">Loslegen</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
