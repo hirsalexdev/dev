@@ -1,0 +1,46 @@
+# systemd USER service: keep an always-reachable Claude Code Remote Control
+# session running on the brain server, surviving reboots.
+#
+# NOTE: This uses Remote Control "server mode" (`claude remote-control`).
+# Server mode is designed to run unattended, but it can only (re)start a
+# Remote Control session – with `--continue` it resumes the most recent
+# *Remote Control* session in the working directory. It does NOT pick an
+# arbitrary old interactive chat; for that, use the `rc` shell helper
+# interactively (see rc.sh). Use this service when you want a durable,
+# phone-reachable session that comes back after a reboot.
+#
+# ---------------------------------------------------------------------------
+# INSTALL (run as your normal user, NOT root):
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp claude-remote-control.service ~/.config/systemd/user/
+#   # edit WorkingDirectory below to your project path, then:
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now claude-remote-control.service
+#
+#   # so it keeps running after you log out / on boot without an active login:
+#   sudo loginctl enable-linger "$USER"
+#
+#   # find the session URL / QR to open on your phone:
+#   journalctl --user -u claude-remote-control.service -f
+# ---------------------------------------------------------------------------
+
+[Unit]
+Description=Claude Code Remote Control session
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Change this to the project directory whose session you want to expose:
+WorkingDirectory=%h/projects/my-project
+# `--continue` resumes the most recent Remote Control session in that dir;
+# drop it if you always want a fresh session.
+ExecStart=claude remote-control --continue
+Restart=on-failure
+RestartSec=5
+# Claude Code needs your login credentials; %h expands to your home dir.
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target
