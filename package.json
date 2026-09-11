@@ -1,0 +1,20 @@
+{
+  "name": "snapgrab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-hosted Instagram media downloader (SnapInsta-style) with a layered resolver chain and a signed streaming proxy.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "probe": "node scripts/probe.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "undici": "^7.2.0"
+  }
+}

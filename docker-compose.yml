@@ -1,0 +1,12 @@
+services:
+  snapgrab:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      # Wenn ein Reverse Proxy davor liegt, damit Rate Limits auf der echten
+      # Client-IP greifen statt auf der des Proxys.
+      TRUST_PROXY: "true"

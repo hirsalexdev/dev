@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SnapGrab</title>
+    <meta name="description" content="Selbst gehosteter Instagram-Downloader für Reels, Posts und Karussells." />
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>⬇️</text></svg>" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="head">
+        <h1>SnapGrab</h1>
+        <p class="sub">Instagram-Link einfügen, Medien in Originalqualität herunterladen.</p>
+      </header>
+
+      <form id="form" class="panel" autocomplete="off">
+        <label class="sr-only" for="url">Instagram-URL</label>
+        <div class="field">
+          <input
+            id="url"
+            name="url"
+            type="url"
+            inputmode="url"
+            placeholder="https://www.instagram.com/reel/..."
+            required
+          />
+          <button id="submit" type="submit">Holen</button>
+        </div>
+        <p class="hint">Unterstützt: Reels, Posts, Karussells und IGTV von öffentlichen Konten.</p>
+      </form>
+
+      <div id="status" class="status" hidden></div>
+      <section id="result" class="result" hidden></section>
+
+      <footer class="foot">
+        <p>
+          Läuft vollständig auf deinem eigenen Server. Es werden keine Dateien gespeichert, die Medien
+          werden nur durchgereicht.
+        </p>
+        <p class="small">
+          Nur für Inhalte nutzen, an denen du die Rechte hast oder für die du eine Erlaubnis besitzt.
+          Automatisierter Abruf verstößt gegen die Nutzungsbedingungen von Instagram.
+        </p>
+      </footer>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
